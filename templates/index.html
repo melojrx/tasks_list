@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="mb-4">Lista de Tarefas</h1>
+    <ul class="list-group">
+        {% for task in tasks %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ task['content'] }}</span>
+                <div>
+                    {% if not task['completed'] %}
+                        <a href="{{ url_for('complete', task_id=task['id']) }}" class="btn btn-success btn-sm">Complete</a>
+                    {% else %}
+                        <span class="badge bg-success">Completed</span>
+                    {% endif %}
+                    <!-- Botão que aciona o modal -->
+                    <button class="btn btn-danger btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-task-id="{{ task['id'] }}">Delete</button>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirma deleção</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Você tem certeza que deseja excluir esta tarefa?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <!-- Botão para confirmar a exclusão -->
+                    <a id="confirmDeleteBtn" href="#" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para atualizar o link do modal com o ID da tarefa -->
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget; // Botão que acionou o modal
+            var taskId = button.getAttribute('data-task-id'); // Extrai o ID da tarefa
+            var confirmDeleteBtn = document.getElementById('confirmDeleteBtn'); 
+            confirmDeleteBtn.href = '/delete/' + taskId; // Atualiza o link de exclusão
+        });
+    </script>
+{% endblock %}

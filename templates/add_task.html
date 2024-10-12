@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="mb-4">Adicionar Tarefa</h1>
+    <form method="POST" class="form-group">
+        <div class="mb-3">
+            <label for="content" class="form-label">Tarefa:</label>
+            <input type="text" id="content" name="content" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+    </form>
+{% endblock %}

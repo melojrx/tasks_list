@@ -1,0 +1,23 @@
+# Ambiente virtual Python
+venv/
+*.pyc
+__pycache__/
+
+# Arquivos de configuração locais
+.env
+
+# Banco de dados SQLite
+tasks.db
+
+# Arquivos temporários do sistema
+*.DS_Store
+*.swp
+*.swo
+Thumbs.db
+
+# Log files
+*.log
+
+# Configurações do PyCharm/VSCode
+.idea/
+.vscode/
